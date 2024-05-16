@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-abc',
   standalone: true,
-  imports: [],
+  imports: [
+    MatCard
+  ],
   templateUrl: './abc.component.html',
   styleUrl: './abc.component.scss'
 })

@@ -1,0 +1,11 @@
+.abc-letters-container{
+  display: flex;
+  justify-content: space-between;
+
+  .abc-letters{
+    width: auto;
+    padding: 15px;
+    margin: 15px 0;
+    color: white;
+  }
+}
