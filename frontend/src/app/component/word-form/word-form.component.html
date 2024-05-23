@@ -1,1 +1,15 @@
-<p>word-form works!</p>
+<div id="input-form">
+  <form class="input-form">
+    <mat-form-field class="input-full-width">
+      <mat-label>Következő tipp</mat-label>
+      <input type="text" matInput [formControl]="inputFormControl">
+      @if (inputFormControl.hasError('email') && !inputFormControl.hasError('required')) {
+        <mat-error>Kérlek adj meg egy 5 betűs szót, ahol a leírt betűk számítanak</mat-error>
+      }
+      @if (inputFormControl.hasError('required')) {
+        <mat-error> <strong>Kötelező mező</strong></mat-error>
+      }
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color="primary">Beküld</button>
+</div>

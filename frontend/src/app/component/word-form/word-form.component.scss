@@ -1,0 +1,18 @@
+#input-form {
+  max-width: 300px;
+  padding: 15px 15px 0 0;
+  border-right: lightslategrey 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .input-form {
+    min-width: 150px;
+    max-width: 200px;
+    width: 100%;
+
+    .input-full-width {
+      width: 100%;
+    }
+  }
+}
