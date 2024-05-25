@@ -1,5 +1,18 @@
 <div id="abc-container" class="abc-letters-container">
-  @for (item of abc; track item) {
-  <mat-card id="letters-box" class="abc-letters">{{ item }}</mat-card>
-}
+  <div id="letters-box" [ngClass]="isFlipped ? 'flipped' : ''" class="abc-letters" >
+    @for (item of abc; track item) {
+        <div class="front" (click)="toggleFlip()">{{ item }}</div>
+        <div class="back"></div>
+    }
+  </div>
 </div>
+
+<!--<div id="abc-container" class="abc-letters-container" (click)="toggleFlip()">-->
+<!--    @for (item of abc; track item) {-->
+<!--    <mat-card id="letters-box" class="abc-letters">{{ item }}</mat-card>-->
+<!--  }-->
+<!--</div>-->
+
+<!--      <div [class.flip]="isFlipped[item]"-->
+<!--           (click)="toggleFlip(item)">-->
+<!--      </div>-->
