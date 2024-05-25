@@ -1,11 +1,32 @@
 <div id="abc-container" class="abc-letters-container">
-  <div id="letters-box" [ngClass]="isFlipped ? 'flipped' : ''" class="abc-letters" >
-    @for (item of abc; track item) {
-        <div class="front" (click)="toggleFlip()">{{ item }}</div>
-        <div class="back"></div>
-    }
+  <div id="letters-box"  class="abc-letters" >
+        @for (item of abc; track item) {
+          <div [ngClass]="isFlipped[item] ? 'flipped' : ''" (click)="toggleFlip(item)">
+            <div class="front" >{{ item }}</div>
+            <div class="back"></div>
+          </div>
+        }
   </div>
 </div>
+
+<!--<label class="abc-letters-container">-->
+<!--  <input type="checkbox"  />-->
+<!--  <div class="card">-->
+<!--    <div class="front">Front</div>-->
+<!--    <div class="back">Back</div>-->
+<!--  </div>-->
+<!--</label>-->
+
+<!--<div id="abc-container" class="abc-letters-container">-->
+<!--  <div id="letters-box" [ngClass]="isFlipped ? 'flipped' : ''" class="abc-letters" >-->
+<!--    @for (item of abc; track item) {-->
+<!--        <div class="front" (click)="toggleFlip()">{{ item }}</div>-->
+<!--        <div class="back"></div>-->
+<!--    }-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
 <!--<div id="abc-container" class="abc-letters-container" (click)="toggleFlip()">-->
 <!--    @for (item of abc; track item) {-->

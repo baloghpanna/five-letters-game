@@ -14,7 +14,8 @@ import {NgClass} from "@angular/common";
 export class AbcComponent implements AfterViewInit {
   abc = ['A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N', 'O', 'Ó', 'Ö', 'Ő', 'P', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'Ű', 'V', 'Z']
   minBoxesPerRow: number = 0;
-  isFlipped = false;
+  // isFlipped = false;
+  isFlipped: { [key: string]: boolean } = {};
 
 
 
@@ -37,8 +38,12 @@ export class AbcComponent implements AfterViewInit {
     this.minBoxesPerRow = Math.floor(containerWidth / boxWidth);
   }
 
-  toggleFlip() {
-      this.isFlipped = !this.isFlipped;
-
+  // toggleFlip() {
+  //     this.isFlipped = !this.isFlipped;
+  //
+  // }
+  toggleFlip(item: string) {
+    this.isFlipped[item] = !this.isFlipped[item];
   }
+
 }
