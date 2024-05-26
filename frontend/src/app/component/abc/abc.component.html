@@ -1,39 +1,21 @@
-<div id="abc-container" class="abc-letters-container">
-  <div id="letters-box"  class="abc-letters" >
-        @for (item of abc; track item) {
-          <div [ngClass]="isFlipped[item] ? 'flipped' : ''" (click)="toggleFlip(item)">
-            <div class="front" >{{ item }}</div>
-            <div class="back"></div>
-          </div>
-        }
-  </div>
+<div class="card-holder">
+    @for (item of abc; track abc) {
+    @if (!item.isFlipped) {
+      <div class="card front" (click)="setThis(item, true)">{{ item.name }}</div>
+    }
+    @if (item.isFlipped) {
+      <div class="card back" (click)="setThis(item, false)"></div>
+    }
+  }
 </div>
 
-<!--<label class="abc-letters-container">-->
-<!--  <input type="checkbox"  />-->
-<!--  <div class="card">-->
-<!--    <div class="front">Front</div>-->
-<!--    <div class="back">Back</div>-->
-<!--  </div>-->
-<!--</label>-->
-
-<!--<div id="abc-container" class="abc-letters-container">-->
-<!--  <div id="letters-box" [ngClass]="isFlipped ? 'flipped' : ''" class="abc-letters" >-->
-<!--    @for (item of abc; track item) {-->
-<!--        <div class="front" (click)="toggleFlip()">{{ item }}</div>-->
-<!--        <div class="back"></div>-->
+<!--<div class="card-holder">-->
+<!--  @for (item of abc; track abc) {-->
+<!--    @if (!item.isFlipped) {-->
+<!--      <div class="card front" (click)="setThis(item, true)">{{ item.name }}</div>-->
 <!--    }-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-
-<!--<div id="abc-container" class="abc-letters-container" (click)="toggleFlip()">-->
-<!--    @for (item of abc; track item) {-->
-<!--    <mat-card id="letters-box" class="abc-letters">{{ item }}</mat-card>-->
+<!--    @if (item.isFlipped) {-->
+<!--      <div class="card back" (click)="setThis(item, false)">{{($index + 1) < 10 ? "0" + ($index + 1) : $index + 1 }}</div>-->
+<!--    }-->
 <!--  }-->
 <!--</div>-->
-
-<!--      <div [class.flip]="isFlipped[item]"-->
-<!--           (click)="toggleFlip(item)">-->
-<!--      </div>-->
