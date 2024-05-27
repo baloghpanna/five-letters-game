@@ -1,5 +1,7 @@
 package hu.fivelettersgame.service;
 
+import hu.fivelettersgame.domain.Word;
+import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
 import hu.fivelettersgame.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,4 +20,18 @@ public class GameService {
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
+
+    public WordSecret getSecretWord() {
+        Word newWord = gameRepository.findRandomEntity();
+        return mapEntityToDto(newWord);
+
+    }
+
+    private WordSecret mapEntityToDto(Word newWord) {
+        WordSecret secretWord = new WordSecret();
+        secretWord.setSecretWord(newWord.getWord());
+        return secretWord;
+    }
+
 }
+
