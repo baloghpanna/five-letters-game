@@ -4,6 +4,7 @@ import {MatCard} from "@angular/material/card";
 import {GameService} from "../../service/game.service";
 import {WordSecretModel} from "../../model/wordSecret.model";
 import {AsyncPipe} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-secret-word',
@@ -11,7 +12,8 @@ import {AsyncPipe} from "@angular/common";
   imports: [
     MatButton,
     MatCard,
-    AsyncPipe
+    AsyncPipe,
+    MatIcon
   ],
   templateUrl: './secret-word.component.html',
   styleUrl: './secret-word.component.scss'

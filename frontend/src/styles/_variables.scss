@@ -1,0 +1,2 @@
+@use "my-theme";
+$primary: map-get(my-theme.$my-theme-primary, "default")
