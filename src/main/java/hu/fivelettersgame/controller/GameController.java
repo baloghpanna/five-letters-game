@@ -28,4 +28,6 @@ public class GameController {
         WordSecret wordSecret = gameService.getSecretWord();
         return new ResponseEntity<>(wordSecret, HttpStatus.OK);
     }
+
+
 }

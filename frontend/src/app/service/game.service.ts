@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {WordSecretModel} from "../model/wordSecret.model";
 import {Observable} from "rxjs";
 
-const BASE_URL= 'http://localhost:8080/api/words'
+const BASE_URL= 'http://localhost:8081/api/words'
 @Injectable({
   providedIn: 'root'
 })
