@@ -15,4 +15,8 @@
       width: 100%;
     }
   }
+  button:disabled {
+    background-color: #cccccc; /* Világosszürke háttér */
+    cursor: not-allowed; /* Nem engedélyezett kurzor */
+  }
 }
