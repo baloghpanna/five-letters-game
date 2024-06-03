@@ -5,6 +5,7 @@ import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
 import hu.fivelettersgame.repository.GameRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,23 +32,24 @@ public class GameService {
 
     }
 
-    public List guessResult(WordInput wordInput) {
+    public List<GuessResult> guessResult(WordInput wordInput) {
         String guessWord = wordInput.getWord();
-        if(gameRepository.checkInputWord(guessWord) == 1){
-            GuessResult guess = new GuessResult();
+        GuessResult guess = new GuessResult();
+
+        if (gameRepository.checkInputWord(guessWord) == 1) {
             guess.setUsedWord(wordInput);
             guess.setResult(countGuessResult(guessWord));
-            List guessResultList = new ArrayList<>();
         }
 
-
+        List<GuessResult> guessResultList = new ArrayList<>();
+        guessResultList.add(guess);
+        return guessResultList;
     }
 
     private Long countGuessResult(String guessWord) {
-        Long result;
+        Long result = 3L;
 
-
-        return null;
+        return result;
     }
 
     private WordSecret mapEntityToDto(Word newWord) {
