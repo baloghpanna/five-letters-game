@@ -32,7 +32,7 @@ public class GameService {
 
     }
 
-    public List<GuessResult> guessResult(WordInput wordInput) {
+    public List<GuessResult> guessResult(WordInput wordInput, Long secretWordId) {
         String guessWord = wordInput.getWord();
         GuessResult guess = new GuessResult();
 
@@ -55,6 +55,7 @@ public class GameService {
     private WordSecret mapEntityToDto(Word newWord) {
         WordSecret secretWord = new WordSecret();
         secretWord.setSecretWord(newWord.getWord());
+        secretWord.setId(newWord.getId());
         return secretWord;
     }
 

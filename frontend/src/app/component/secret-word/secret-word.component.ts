@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCard} from "@angular/material/card";
 import {GameService} from "../../service/game.service";
@@ -19,7 +19,8 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './secret-word.component.scss'
 })
 export class SecretWordComponent {
-  secretWord!: string;
+  @Output() secretWord!: WordSecretModel;
+  // @Output() secretWord: WordSecretModel = new EventEmitter<WordSecretModel>();
   isGetSecretWord = false;
 
   constructor(private gameService: GameService) {
@@ -27,10 +28,10 @@ export class SecretWordComponent {
 
 
   getSecretWord() {
-    this.gameService.getSecretWords().subscribe({
+    this.gameService.getSecretWord().subscribe({
       next: value => {
-        this.secretWord = value.secretWord;
-        console.log("A kitalálandó szó: "+this.secretWord)
+        this.secretWord = value;
+        console.log("A kitalálandó szó: " + this.secretWord)
         this.isGetSecretWord = true;
       },
       error: err => console.log(err)

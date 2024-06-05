@@ -43,8 +43,8 @@ public class GameController {
     }
 
     @PostMapping
-    public ResponseEntity<List<GuessResult>> guessResult(WordInput wordInput) {
-        List guessResult = gameService.guessResult(wordInput);
+    public ResponseEntity<List<GuessResult>> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
+        List guessResult = gameService.guessResult(wordInput, secretWordId);
         return new ResponseEntity<>(guessResult, HttpStatus.OK);
 
     }

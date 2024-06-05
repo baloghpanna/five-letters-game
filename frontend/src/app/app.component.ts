@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {WordSecretModel} from "./model/wordSecret.model";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  secretWord!: WordSecretModel;
+
+  updateSecretWord(newWord: WordSecretModel) {
+    this.secretWord = newWord;
+  }
+
 }
