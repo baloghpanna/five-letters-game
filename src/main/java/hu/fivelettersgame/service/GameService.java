@@ -38,16 +38,26 @@ public class GameService {
 
         if (gameRepository.checkInputWord(guessWord) == 1) {
             guess.setUsedWord(wordInput);
-            guess.setResult(countGuessResult(guessWord));
+            guess.setResult(countGuessResult(guessWord, secretWordId));
         }
+        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
 
         List<GuessResult> guessResultList = new ArrayList<>();
         guessResultList.add(guess);
         return guessResultList;
     }
 
-    private Long countGuessResult(String guessWord) {
-        Long result = 3L;
+    private Long countGuessResult(String guessWord, Long secretWordId) {
+        Long result = 0L;
+        String secretWord = gameRepository.findById(secretWordId).orElseThrow(EntityNotFoundException::new).getWord();
+        for (int i = 0; i < secretWord.length(); i++) {
+            for (int j = 0; j < secretWord.length(); j++) {
+                if (secretWord.charAt(i) == guessWord.charAt(j)) {
+                    result++;
+                }
+            }
+        }
+        System.out.println("Találatok száma: " + result);
 
         return result;
     }
