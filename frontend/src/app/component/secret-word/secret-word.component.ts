@@ -19,8 +19,8 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './secret-word.component.scss'
 })
 export class SecretWordComponent {
-  @Output() secretWord!: WordSecretModel;
-  // @Output() secretWord: WordSecretModel = new EventEmitter<WordSecretModel>();
+  secretWord!: WordSecretModel;
+  // @Output() secretWord: EventEmitter<WordSecretModel> = new EventEmitter<WordSecretModel>();
   isGetSecretWord = false;
 
   constructor(private gameService: GameService) {
@@ -33,6 +33,7 @@ export class SecretWordComponent {
         this.secretWord = value;
         console.log("A kitalálandó szó: " + this.secretWord)
         this.isGetSecretWord = true;
+        this.gameService.updateSecretWord({ id: this.secretWord.id, secretWord: this.secretWord.secretWord });
       },
       error: err => console.log(err)
     })

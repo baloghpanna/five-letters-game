@@ -9,6 +9,7 @@ import {WordFormComponent} from "./component/word-form/word-form.component";
 import {WordListComponent} from "./component/word-list/word-list.component";
 import {SecretWordComponent} from "./component/secret-word/secret-word.component";
 import {HttpClientModule} from '@angular/common/http';
+import {GameComponent} from "./component/game/game.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     AbcComponent,
     WordFormComponent,
     WordListComponent,
-    SecretWordComponent
+    SecretWordComponent,
+    GameComponent
   ],
   providers: [
     provideAnimationsAsync()

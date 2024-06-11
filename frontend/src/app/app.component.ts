@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WordSecretModel} from "./model/wordSecret.model";
 
 @Component({
@@ -7,11 +7,11 @@ import {WordSecretModel} from "./model/wordSecret.model";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
-  secretWord!: WordSecretModel;
+  title = 'Five Letters Game';
 
-  updateSecretWord(newWord: WordSecretModel) {
-    this.secretWord = newWord;
-  }
+
+  // updateSecretWord(newWord: WordSecretModel) {
+  //   this.secretWord = newWord;
+  // }
 
 }
