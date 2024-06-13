@@ -9,18 +9,19 @@ import {WordSecretModel} from "../../model/wordSecret.model";
 import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-word-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButton, WordListComponent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButton, WordListComponent, MatCard],
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
 export class WordFormComponent implements OnInit{
   @Input() secretWord!: WordSecretModel;
   secretWordId: number = 0;
-  @Output() guessResult: GuessResultModel[] = [];
+  @Output() guessResult!: GuessResultModel[];
   inputWordForm: FormGroup;
 
   // inputFormControl = new FormControl('', [lengthValidator(5)]);
@@ -42,6 +43,7 @@ export class WordFormComponent implements OnInit{
       next: (result) => {
         this.guessResult = result;
         console.log("a modell hossza: " + this.guessResult.length);
+        console.log("a modell: " + JSON.stringify(this.guessResult));
 
       },
       error: (err) => {

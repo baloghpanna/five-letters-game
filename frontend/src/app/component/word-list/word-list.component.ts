@@ -12,12 +12,12 @@ import {GuessResultModel} from "../../model/guessResult.model";
   styleUrl: './word-list.component.scss'
 })
 export class WordListComponent {
-  @Input() guessedWords: GuessResultModel[] = [];
+  @Input() guessedWords!: GuessResultModel[];
   // outplayedWords: WordListModel[] = [];
-  outplayedWords: any[] = ['sátor', 'sisak', 'fárad', 'zabla'];
+  // outplayedWords: any[] = ['sátor', 'sisak', 'fárad', 'zabla'];
 
   constructor() {
-    console.log("a modell hossza: " + this.guessedWords.length);
+    // console.log("a modell hossza-list: " + this.guessedWords.length);
   }
 
 

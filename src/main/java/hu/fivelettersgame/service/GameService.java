@@ -20,6 +20,8 @@ public class GameService {
 
     private GameRepository gameRepository;
     private Random random = new Random();
+    List<GuessResult> guessResultList = new ArrayList<>();
+
 
     @Autowired
     public GameService(GameRepository gameRepository) {
@@ -37,12 +39,11 @@ public class GameService {
         GuessResult guess = new GuessResult();
 
         if (gameRepository.checkInputWord(guessWord) == 1) {
-            guess.setUsedWord(String.valueOf(wordInput));
+            guess.setUsedWord(guessWord);
             guess.setResult(countGuessResult(guessWord, secretWordId));
         }
         //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
 
-        List<GuessResult> guessResultList = new ArrayList<>();
         guessResultList.add(guess);
         return guessResultList;
     }
