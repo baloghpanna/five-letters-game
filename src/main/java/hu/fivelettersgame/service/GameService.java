@@ -37,7 +37,7 @@ public class GameService {
         GuessResult guess = new GuessResult();
 
         if (gameRepository.checkInputWord(guessWord) == 1) {
-            guess.setUsedWord(wordInput);
+            guess.setUsedWord(String.valueOf(wordInput));
             guess.setResult(countGuessResult(guessWord, secretWordId));
         }
         //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó

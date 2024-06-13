@@ -4,6 +4,7 @@ import {WordSecretModel} from "../model/wordSecret.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {WordListModel} from "../model/wordList.model";
 import {WordInputModel} from "../model/wordInput.model";
+import {GuessResultModel} from "../model/guessResult.model";
 
 const BASE_URL = 'http://localhost:8081/api/words'
 
@@ -19,9 +20,9 @@ export class GameService {
     return this.http.get<WordSecretModel>(BASE_URL);
   }
 
-  makeGuessTips(inputWord: WordInputModel, secretWordId: number): Observable<any> {
+  makeGuessTips(inputWord: WordInputModel, secretWordId: number): Observable<GuessResultModel[]> {
     const url = `${BASE_URL}?secretWordId=${secretWordId}`;
-    return this.http.post(url, inputWord);
+    return this.http.post<GuessResultModel[]>(url, inputWord);
   }
 
   private wordSecretObject   = new BehaviorSubject<WordSecretModel>({ secretWord: '', id: 0});

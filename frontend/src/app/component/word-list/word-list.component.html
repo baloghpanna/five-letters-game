@@ -1,5 +1,6 @@
 <div id="outplayed-words-container">
-  @for (item of outplayedWords; track item) {
-    <mat-card class="outplayed-words-list">{{ item }}</mat-card>
+  @for (item of guessedWords; track item) {
+    <mat-card class="outplayed-words-list">A szó: {{ item.usedWord }}</mat-card>
+    <mat-card class="outplayed-words-list">A találat: {{ item.result }}</mat-card>
   }
 </div>

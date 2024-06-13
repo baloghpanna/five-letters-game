@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GuessResult {
-    private WordInput usedWord;
+//    private WordInput usedWord;
+    private String usedWord;
     private Long result;
 
 }

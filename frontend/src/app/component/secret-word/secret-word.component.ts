@@ -31,7 +31,7 @@ export class SecretWordComponent {
     this.gameService.getSecretWord().subscribe({
       next: value => {
         this.secretWord = value;
-        console.log("A kitalálandó szó: " + this.secretWord)
+        console.log("A kitalálandó szó: " + this.secretWord.secretWord)
         this.isGetSecretWord = true;
         this.gameService.updateSecretWord({ id: this.secretWord.id, secretWord: this.secretWord.secretWord });
       },
