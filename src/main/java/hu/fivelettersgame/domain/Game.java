@@ -5,21 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "results")
+@Table(name = "game")
 @Data
 @NoArgsConstructor
-public class Result {
+public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long gameId;
 
     @ManyToOne
-    @JoinColumn(name = "gameId")
-    private Game game;
-
-    @Column
-    private String guessWord;
-
-    @Column
-    private Long result;
+    @JoinColumn(name = "word_id")
+    private Word word;
 }

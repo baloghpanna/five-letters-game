@@ -41,11 +41,23 @@ public class GameController {
         WordSecret wordSecret = gameService.getSecretWord();
         return new ResponseEntity<>(wordSecret, HttpStatus.OK);
     }
+    @GetMapping("/guesslist")
+    public ResponseEntity<List<GuessResult>> getGuessList(Long gameId) {
+        logger.info("Get Guess List");
+        List<GuessResult> guessResultList = gameService.getGuessList(gameId);
+        return new ResponseEntity<>(guessResultList, HttpStatus.OK);
+    }
 
+//    @PostMapping
+//    public ResponseEntity<List<GuessResult>> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
+//        List guessResult = gameService.guessResult(wordInput, secretWordId);
+//        return new ResponseEntity<>(guessResult, HttpStatus.OK);
+//
+//    }
     @PostMapping
-    public ResponseEntity<List<GuessResult>> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
-        List guessResult = gameService.guessResult(wordInput, secretWordId);
-        return new ResponseEntity<>(guessResult, HttpStatus.OK);
+    public ResponseEntity<Void> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
+        gameService.saveGuessResult(wordInput, secretWordId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 

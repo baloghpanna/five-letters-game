@@ -1,5 +1,6 @@
 package hu.fivelettersgame.service;
 
+import hu.fivelettersgame.domain.Result;
 import hu.fivelettersgame.domain.Word;
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
@@ -34,19 +35,29 @@ public class GameService {
 
     }
 
-    public List<GuessResult> guessResult(WordInput wordInput, Long secretWordId) {
-        String guessWord = wordInput.getWord();
-        GuessResult guess = new GuessResult();
-
-        if (gameRepository.checkInputWord(guessWord) == 1) {
-            guess.setUsedWord(guessWord);
-            guess.setResult(countGuessResult(guessWord, secretWordId));
+    public void saveGuessResult(WordInput wordInput, Long secretWordId) {
+        if (gameRepository.checkInputWord(wordInput.getWord()) == 1) {
+            Result toSave = new Result();
+            toSave.setGuessWord(wordInput.getWord());
+            toSave.setResult(countGuessResult(wordInput.getWord(), secretWordId));
         }
         //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
 
-        guessResultList.add(guess);
-        return guessResultList;
     }
+
+//    public List<GuessResult> guessResult(WordInput wordInput, Long secretWordId) {
+//        String guessWord = wordInput.getWord();
+//        GuessResult guess = new GuessResult();
+//
+//        if (gameRepository.checkInputWord(guessWord) == 1) {
+//            guess.setUsedWord(guessWord);
+//            guess.setResult(countGuessResult(guessWord, secretWordId));
+//        }
+//        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
+//
+//        guessResultList.add(guess);
+//        return guessResultList;
+//    }
 
     private Long countGuessResult(String guessWord, Long secretWordId) {
         Long result = 0L;
@@ -71,5 +82,10 @@ public class GameService {
     }
 
 
+    public List<GuessResult> getGuessList(Long gameId) {
+
+
+        return null;
+    }
 }
 
