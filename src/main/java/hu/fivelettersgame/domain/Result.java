@@ -14,7 +14,7 @@ public class Result {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "gameId")
+    @JoinColumn(name = "game_id")
     private Game game;
 
     @Column

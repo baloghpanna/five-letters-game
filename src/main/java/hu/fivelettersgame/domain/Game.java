@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "game")
 @Data
@@ -14,6 +16,9 @@ public class Game {
     private Long gameId;
 
     @ManyToOne
-    @JoinColumn(name = "word_id")
+    @JoinColumn
     private Word word;
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private List<Result> results;
 }
