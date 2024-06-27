@@ -1,8 +1,7 @@
 package hu.fivelettersgame.validator;
 
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
-import hu.fivelettersgame.repository.GameRepository;
-import hu.fivelettersgame.service.GameService;
+import hu.fivelettersgame.repository.WordRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,10 +12,10 @@ import org.springframework.validation.Validator;
 @NoArgsConstructor
 public class WordInputValidator implements Validator {
 
-    private GameRepository gameRepository;
+    private WordRepository gameRepository;
 
     @Autowired
-    public WordInputValidator(GameRepository gameRepository) {
+    public WordInputValidator(WordRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
 

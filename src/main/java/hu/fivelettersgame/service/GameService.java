@@ -1,11 +1,14 @@
 package hu.fivelettersgame.service;
 
+import hu.fivelettersgame.domain.Game;
 import hu.fivelettersgame.domain.Result;
 import hu.fivelettersgame.domain.Word;
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
 import hu.fivelettersgame.repository.GameRepository;
+import hu.fivelettersgame.repository.ResultRepository;
+import hu.fivelettersgame.repository.WordRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,24 +22,28 @@ import java.util.Random;
 @Transactional
 public class GameService {
 
+    private WordRepository wordRepository;
+    private ResultRepository resultRepository;
     private GameRepository gameRepository;
-    private Random random = new Random();
-    List<GuessResult> guessResultList = new ArrayList<>();
 
 
     @Autowired
-    public GameService(GameRepository gameRepository) {
+    public GameService(WordRepository wordRepository, ResultRepository resultRepository, GameRepository gameRepository) {
+        this.wordRepository = wordRepository;
+        this.resultRepository = resultRepository;
         this.gameRepository = gameRepository;
     }
 
     public WordSecret getSecretWord() {
-        Word newWord = gameRepository.findRandomEntity();
+        Word newWord = wordRepository.findRandomEntity();
+        createNewGame(newWord);
         return mapEntityToDto(newWord);
-
     }
 
+
+
     public void saveGuessResult(WordInput wordInput, Long secretWordId) {
-        if (gameRepository.checkInputWord(wordInput.getWord()) == 1) {
+        if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
             Result toSave = new Result();
             toSave.setGuessWord(wordInput.getWord());
             toSave.setResult(countGuessResult(wordInput.getWord(), secretWordId));
@@ -61,7 +68,7 @@ public class GameService {
 
     private Long countGuessResult(String guessWord, Long secretWordId) {
         Long result = 0L;
-        String secretWord = gameRepository.findById(secretWordId).orElseThrow(EntityNotFoundException::new).getWord();
+        String secretWord = wordRepository.findById(secretWordId).orElseThrow(EntityNotFoundException::new).getWord();
         for (int i = 0; i < secretWord.length(); i++) {
             for (int j = 0; j < secretWord.length(); j++) {
                 if (secretWord.charAt(i) == guessWord.charAt(j)) {
@@ -79,6 +86,12 @@ public class GameService {
         secretWord.setSecretWord(newWord.getWord());
         secretWord.setId(newWord.getId());
         return secretWord;
+    }
+    private Game createNewGame(Word newWord) {
+        Game newGame = new Game();
+        newGame.setWord(newWord);
+        gameRepository.save(newGame);
+        return newGame;
     }
 
 
