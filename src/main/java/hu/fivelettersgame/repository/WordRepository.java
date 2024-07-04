@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
 
@@ -13,7 +15,7 @@ public interface WordRepository extends JpaRepository<Word, Long> {
     long countEntities();
 
     @Query(value = "SELECT * FROM words ORDER BY RAND() LIMIT 1", nativeQuery = true)
-    Word findRandomEntity();
+    Optional<Word> findRandomEntity();
 
     @Query("SELECT COUNT(w) FROM Word w WHERE w.word = :word")
     long checkInputWord(@Param("word") String word);

@@ -58,7 +58,11 @@ public class GameController {
     public ResponseEntity<Void> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
         gameService.saveGuessResult(wordInput, secretWordId);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
+    }
+    @PostMapping
+    public ResponseEntity<Void> addGuessResult(@RequestBody WordInput wordInput) {
+        gameService.saveGuessResult(wordInput);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
