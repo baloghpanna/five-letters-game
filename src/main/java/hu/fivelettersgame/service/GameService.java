@@ -1,5 +1,6 @@
 package hu.fivelettersgame.service;
 
+import hu.fivelettersgame.controller.GameController;
 import hu.fivelettersgame.domain.Game;
 import hu.fivelettersgame.domain.Result;
 import hu.fivelettersgame.domain.Word;
@@ -10,6 +11,8 @@ import hu.fivelettersgame.repository.GameRepository;
 import hu.fivelettersgame.repository.ResultRepository;
 import hu.fivelettersgame.repository.WordRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,7 @@ public class GameService {
     private WordRepository wordRepository;
     private ResultRepository resultRepository;
     private GameRepository gameRepository;
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
 
     @Autowired
@@ -36,10 +40,13 @@ public class GameService {
 
     public WordSecret getSecretWord() {
         Word newWord = wordRepository.findRandomEntity();
+        if (newWord == null) {
+            logger.error("No word found in the database.");
+            throw new RuntimeException("No word found");
+        }
         createNewGame(newWord);
         return mapEntityToDto(newWord);
     }
-
 
 
     public void saveGuessResult(WordInput wordInput, Long secretWordId) {
@@ -87,6 +94,7 @@ public class GameService {
         secretWord.setId(newWord.getId());
         return secretWord;
     }
+
     private Game createNewGame(Word newWord) {
         Game newGame = new Game();
         newGame.setWord(newWord);
