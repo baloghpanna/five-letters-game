@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 public class WordSecret {
 
     private String secretWord;
-    private Long id;
+    private Long wordId;
+    private Long gameId;
 }

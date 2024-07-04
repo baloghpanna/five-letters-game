@@ -17,10 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @Transactional
@@ -45,8 +43,9 @@ public class GameService {
             logger.error("No word found in the database.");
             return new RuntimeException("No word found");
         });
-        createNewGame(newWord);
-        return mapEntityToDto(newWord);
+        Game newGame = createNewGame(newWord);
+
+        return mapWordEntityToWordSecretDto(newWord, newGame);
     }
 
 
@@ -89,10 +88,11 @@ public class GameService {
         return result;
     }
 
-    private WordSecret mapEntityToDto(Word newWord) {
+    private WordSecret mapWordEntityToWordSecretDto(Word newWord, Game game) {
         WordSecret secretWord = new WordSecret();
         secretWord.setSecretWord(newWord.getWord());
-        secretWord.setId(newWord.getId());
+        secretWord.setWordId(newWord.getId());
+        secretWord.setGameId(game.getGameId());
         return secretWord;
     }
 
@@ -108,6 +108,13 @@ public class GameService {
 
 
         return null;
+    }
+
+    public void saveGuessWord(WordInput wordInput) {
+        if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
+
+        }
+        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
     }
 }
 

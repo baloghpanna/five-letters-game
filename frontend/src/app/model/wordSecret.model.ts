@@ -1,5 +1,6 @@
 export interface WordSecretModel{
 
   secretWord: string;
-  id: number;
+  wordId: number;
+  gameId: number;
 }
