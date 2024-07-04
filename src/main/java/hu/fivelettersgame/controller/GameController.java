@@ -1,5 +1,6 @@
 package hu.fivelettersgame.controller;
 
+import hu.fivelettersgame.domain.dto.incoming.GameInput;
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
@@ -41,29 +42,34 @@ public class GameController {
         WordSecret wordSecret = gameService.getSecretWord();
         return new ResponseEntity<>(wordSecret, HttpStatus.OK);
     }
-    @GetMapping("/guesslist")
-    public ResponseEntity<List<GuessResult>> getGuessList(Long gameId) {
-        logger.info("Get Guess List");
-        List<GuessResult> guessResultList = gameService.getGuessList(gameId);
-        return new ResponseEntity<>(guessResultList, HttpStatus.OK);
-    }
 
-//    @PostMapping
+//    @GetMapping("/guesslist")
+//    public ResponseEntity<List<GuessResult>> getGuessList(Long gameId) {
+//        logger.info("Get Guess List");
+//        List<GuessResult> guessResultList = gameService.getGuessList(gameId);
+//        return new ResponseEntity<>(guessResultList, HttpStatus.OK);
+//    }
+
+    //    @PostMapping
 //    public ResponseEntity<List<GuessResult>> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
 //        List guessResult = gameService.guessResult(wordInput, secretWordId);
 //        return new ResponseEntity<>(guessResult, HttpStatus.OK);
 //
 //    }
+
     @PostMapping
-    public ResponseEntity<Void> guessResult(@RequestBody WordInput wordInput, @RequestParam Long secretWordId) {
-        gameService.saveGuessResult(wordInput, secretWordId);
+    public ResponseEntity<Void> guessResult(@RequestBody GameInput gameInput) {
+        logger.info("saveGuessResult1");
+        gameService.saveGuessResult(gameInput.getWordInput(), gameInput.getWordSecret());
+        logger.info("saveGuessResult");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @PostMapping
-    public ResponseEntity<Void> addGuessResult(@RequestBody WordInput wordInput) {
-        gameService.saveGuessWord(wordInput);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+
+//    @PostMapping
+//    public ResponseEntity<Void> addGuessResult(@RequestBody WordInput wordInput) {
+//        gameService.saveGuessWord(wordInput);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 
 
 }

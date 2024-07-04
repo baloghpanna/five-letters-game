@@ -20,13 +20,19 @@ export class GameService {
     return this.http.get<WordSecretModel>(BASE_URL);
   }
 
-  makeGuessTips(inputWord: WordInputModel, secretWordId: number): Observable<GuessResultModel[]> {
-    const url = `${BASE_URL}?secretWordId=${secretWordId}`;
-    return this.http.post<GuessResultModel[]>(url, inputWord);
+  makeGuessTips(inputWord: WordInputModel, secretWord: WordSecretModel) {
+    const url = `${BASE_URL}`;
+    const combinedObject = {
+      inputWord: inputWord,
+      secretWord: secretWord
+    };
+    console.log(combinedObject + 'combinedObject');
+    this.http.post(url, combinedObject);
   }
 
-  private wordSecretObject   = new BehaviorSubject<WordSecretModel>({ secretWord: '', id: 0});
-  wordSecretModel$ = this.wordSecretObject .asObservable();
+
+  private wordSecretObject = new BehaviorSubject<WordSecretModel>({secretWord: '', wordId: 0, gameId: 0});
+  wordSecretModel$ = this.wordSecretObject.asObservable();
 
   updateSecretWord(data: WordSecretModel) {
     this.wordSecretObject.next(data);

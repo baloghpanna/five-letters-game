@@ -19,12 +19,10 @@ import {MatCard} from "@angular/material/card";
   styleUrl: './word-form.component.scss'
 })
 export class WordFormComponent implements OnInit{
-  @Input() secretWord!: WordSecretModel;
-  secretWordId: number = 0;
+  @Input() wordSecretModel!: WordSecretModel;
   @Output() guessResult!: GuessResultModel[];
   inputWordForm: FormGroup;
 
-  // inputFormControl = new FormControl('', [lengthValidator(5)]);
 
   constructor(formBuilder: FormBuilder,
               private gameService: GameService) {
@@ -34,29 +32,13 @@ export class WordFormComponent implements OnInit{
   }
   ngOnInit() {
     this.gameService.wordSecretModel$.subscribe(data => {
-      this.secretWordId = data.id;
+      this.wordSecretModel = data;
     });
   }
 
   send(){
-    this.gameService.makeGuessTips(this.inputWordForm.value, this.secretWordId).subscribe({
-      next: (result) => {
-        this.guessResult = result;
-        console.log("a modell hossza: " + this.guessResult.length);
-        console.log("a modell: " + JSON.stringify(this.guessResult));
-
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        this.inputWordForm.reset();
-      }
-    })
-
-    // this.inputWord = this.inputWordForm.value;
-    // console.log("A tippelt szó: " + JSON.stringify(this.inputWordForm.value));
-    // this.inputWordForm.reset();
-    // console.log("A tippelt szó: " + this.inputWord);
+    this.gameService.makeGuessTips(this.inputWordForm.value, this.wordSecretModel);
+    console.log(this.inputWordForm.value);
+    this.inputWordForm.reset();
   }
 }

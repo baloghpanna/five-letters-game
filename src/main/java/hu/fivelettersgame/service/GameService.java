@@ -49,29 +49,36 @@ public class GameService {
     }
 
 
-    public void saveGuessResult(WordInput wordInput, Long secretWordId) {
+    public void saveGuessResult(WordInput wordInput, WordSecret secretWord) {
         if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
-            Result toSave = new Result();
-            toSave.setGuessWord(wordInput.getWord());
-            toSave.setResult(countGuessResult(wordInput.getWord(), secretWordId));
+            Result toSave = mapResultEntity(wordInput, secretWord);
+
+
         }
         //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
 
     }
 
-//    public List<GuessResult> guessResult(WordInput wordInput, Long secretWordId) {
-//        String guessWord = wordInput.getWord();
-//        GuessResult guess = new GuessResult();
-//
-//        if (gameRepository.checkInputWord(guessWord) == 1) {
-//            guess.setUsedWord(guessWord);
-//            guess.setResult(countGuessResult(guessWord, secretWordId));
-//        }
-//        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
-//
-//        guessResultList.add(guess);
-//        return guessResultList;
-//    }
+    private Result mapResultEntity(WordInput wordInput, WordSecret secretWord) {
+        Result result = new Result();
+
+        result.setGuessWord(wordInput.getWord());
+        result.setGame(findByGameId(secretWord.getGameId()));
+        result.setResult(countGuessResult(wordInput.getWord(), secretWord.getWordId()));
+
+        resultRepository.save(result);
+        logger.info("mapResultEntity" + result.getGuessWord() + result.getResult() + result.getGame().getGameId());
+
+        return result;
+    }
+
+    private Game findByGameId(Long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new EntityNotFoundException("Game not found with id: " + gameId));
+        logger.info("findByGameId" + game.getGameId());
+        return game;
+    }
+
 
     private Long countGuessResult(String guessWord, Long secretWordId) {
         Long result = 0L;
@@ -104,17 +111,12 @@ public class GameService {
     }
 
 
-    public List<GuessResult> getGuessList(Long gameId) {
+//    public List<GuessResult> getGuessList(Long gameId) {
+//
+//
+//        return null;
+//    }
 
 
-        return null;
-    }
-
-    public void saveGuessWord(WordInput wordInput) {
-        if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
-
-        }
-        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
-    }
 }
 
