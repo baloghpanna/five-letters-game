@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,4 +22,6 @@ public class Game {
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private List<Result> results;
+
+    private LocalDateTime createdAt;
 }

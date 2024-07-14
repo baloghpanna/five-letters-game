@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class GameService {
         result.setResult(countGuessResult(wordInput.getWord(), secretWord.getWordId()));
 
         resultRepository.save(result);
-        logger.info("mapResultEntity" + result.getGuessWord() + result.getResult() + result.getGame().getGameId());
+        logger.info("mapResultEntity: " + result.getGuessWord() + "eredmény: "+ result.getResult() + "játék száma: "+ result.getGame().getGameId());
 
         return result;
     }
@@ -106,6 +107,7 @@ public class GameService {
     private Game createNewGame(Word newWord) {
         Game newGame = new Game();
         newGame.setWord(newWord);
+        newGame.setCreatedAt((LocalDateTime.now()));
         gameRepository.save(newGame);
         return newGame;
     }

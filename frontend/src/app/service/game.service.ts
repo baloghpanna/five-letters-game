@@ -21,13 +21,15 @@ export class GameService {
     return this.http.get<WordSecretModel>(BASE_URL);
   }
 
-  makeGuessTips(inputWord: WordInputModel, secretWord: WordSecretModel): Observable<any> {
-    const url = `${BASE_URL}`;
+  makeGuessTips(inputWord: WordInputModel, secretWord: WordSecretModel) {
+    // const url = `${BASE_URL}`;
     const gameInput: GameInput = {
-      inputWord: inputWord,
-      secretWord: secretWord
+      wordInput: inputWord,
+      wordSecret: secretWord
     };
-    return this.http.post(url, gameInput);
+    console.log("A beküldött szó: " + gameInput.wordInput.word + " A titkos szó: " + gameInput.wordSecret.secretWord);
+    // return this.http.post(url, gameInput);
+    return this.http.post(BASE_URL, gameInput);
   }
 
 
