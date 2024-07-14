@@ -10,6 +10,9 @@ import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
 import {MatCard} from "@angular/material/card";
+import {GameInput} from "../../model/gameInput.model";
+
+
 
 @Component({
   selector: 'app-word-form',
@@ -24,11 +27,14 @@ export class WordFormComponent implements OnInit{
   inputWordForm: FormGroup;
 
 
+
   constructor(formBuilder: FormBuilder,
-              private gameService: GameService) {
+              private gameService: GameService
+  ) {
     this.inputWordForm = formBuilder.group({
       userWord: ["", lengthValidator(5)]
     })
+
   }
   ngOnInit() {
     this.gameService.wordSecretModel$.subscribe(data => {
@@ -37,8 +43,28 @@ export class WordFormComponent implements OnInit{
   }
 
   send(){
-    this.gameService.makeGuessTips(this.inputWordForm.value, this.wordSecretModel);
-    console.log(this.inputWordForm.value);
+    const gameInput: GameInput = {
+      inputWord: { word: this.inputWordForm.value.userWord }, // A formból származó adatok alapján
+      secretWord: this.wordSecretModel // A komponens állapotából származó adatok alapján
+    };
+    this.gameService.makeGuessTips(gameInput.inputWord, gameInput.secretWord).subscribe(response => {
+      // Kezelje a választ itt
+    });
     this.inputWordForm.reset();
   }
+
+  // makeGuess() {
+  //   const gameInput: GameInput = {
+  //     inputWord: this.inputWordForm.value,
+  //     secretWord: this.wordSecretModel
+  //   }
+  //   this.gameService.makeGuessTips(gameInput).subscribe( response => {
+  //       console.log('Guess saved successfully', response);
+  //     },
+  //     error => {
+  //       console.error('Error saving guess', error);
+  //     }
+  //   );
+
+  // }
 }

@@ -31,10 +31,10 @@ public class GameController {
         this.wordInputValidator = wordInputValidator;
     }
 
-    @InitBinder
-    public void initFormBinder(WebDataBinder binder) {
-        binder.addValidators(wordInputValidator);
-    }
+//    @InitBinder
+//    public void initFormBinder(WebDataBinder binder) {
+//        binder.addValidators(wordInputValidator);
+//    }
 
     @GetMapping
     public ResponseEntity<WordSecret> getSecretWord() {
