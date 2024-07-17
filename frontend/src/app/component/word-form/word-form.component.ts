@@ -43,14 +43,18 @@ export class WordFormComponent implements OnInit{
   }
 
   send(){
-    const gameInput: GameInput = {
-      wordInput: { word: this.inputWordForm.value.userWord },
-      wordSecret: this.wordSecretModel
-    };
-    console.log("A beküldött szó: " + gameInput.wordInput.word);
+    // const gameInput: GameInput = {
+    //   wordInput: { word: this.inputWordForm.value.userWord },
+    //   wordSecret: this.wordSecretModel
+    // };
+    // console.log("A beküldött szó: " + gameInput.wordInput.word);
 
-    this.gameService.makeGuessTips(gameInput.wordInput, gameInput.wordSecret).subscribe({
-      next: () => {console.log("****A beküldött szó: " + gameInput.wordInput.word);},
+    const wordInput: WordInputModel = {
+      word: this.inputWordForm.value.userWord
+    }
+
+    this.gameService.makeGuessTips(wordInput).subscribe({
+      next: () => {console.log("****A beküldött szó: " + wordInput.word.toString());},
       error: err => console.log(err),
       complete: () =>  this.inputWordForm.reset()
     })

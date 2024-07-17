@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {WordListModel} from "../../model/wordList.model";
 import {MatCard} from "@angular/material/card";
 import {GuessResultModel} from "../../model/guessResult.model";
 @Component({
@@ -12,12 +11,14 @@ import {GuessResultModel} from "../../model/guessResult.model";
   styleUrl: './word-list.component.scss'
 })
 export class WordListComponent {
-  @Input() guessedWords!: GuessResultModel[];
+  // @Input() guessedWords!: GuessResultModel[];
+ guessedWords: GuessResultModel[] | undefined;
   // outplayedWords: WordListModel[] = [];
   // outplayedWords: any[] = ['sátor', 'sisak', 'fárad', 'zabla'];
 
   constructor() {
     // console.log("a modell hossza-list: " + this.guessedWords.length);
+
   }
 
 
