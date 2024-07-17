@@ -44,20 +44,19 @@ public class GameController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Void> guessResult(@RequestBody GameInput gameInput) {
-        logger.info("--------------guessResult" + gameInput.toString());
+    @PostMapping("{id}/guess")
+    public ResponseEntity<Void> guessResult(@PathVariable("id") Long gameId, @RequestBody WordInput wordInput) {
+        logger.info("--------------guessResult" + wordInput.getWord());
 
-        WordInput wordInput = gameInput.getWordInput();
-        logger.info("wordInput" + wordInput.getWord());
-
-        WordSecret wordSecret = gameInput.getWordSecret();
-        logger.info("wordSecret" + wordSecret.getSecretWord());
-
-        gameService.saveGuessResult(wordInput, wordSecret);
+        gameService.saveGuessResult(wordInput, gameId);
         logger.info("saveGuessResult");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+//    @GetMapping
+//    public ResponseEntity<List<GuessResult>> getGuessWordsList() {
+//        logger.info("Get Guess Result List");
+//        List<GuessResult> guessResults = gameService.getGuessWordsList();
+//        return new ResponseEntity<>(guessResults, HttpStatus.OK);
+//    }
 
 }

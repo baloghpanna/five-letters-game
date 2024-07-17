@@ -25,10 +25,12 @@ import java.util.Optional;
 @Transactional
 public class GameService {
 
+
     private WordRepository wordRepository;
     private ResultRepository resultRepository;
     private GameRepository gameRepository;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
+
 
 
     @Autowired
@@ -50,9 +52,9 @@ public class GameService {
     }
 
 
-    public void saveGuessResult(WordInput wordInput, WordSecret secretWord) {
+    public void saveGuessResult(WordInput wordInput, Long gameId) {
         if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
-            Result toSave = mapResultEntity(wordInput, secretWord);
+            Result toSave = mapResultEntity(wordInput, gameId);
 
 
         }
@@ -60,12 +62,12 @@ public class GameService {
 
     }
 
-    private Result mapResultEntity(WordInput wordInput, WordSecret secretWord) {
+    private Result mapResultEntity(WordInput wordInput, Long gameId) {
         Result result = new Result();
 
         result.setGuessWord(wordInput.getWord());
-        result.setGame(findByGameId(secretWord.getGameId()));
-        result.setResult(countGuessResult(wordInput.getWord(), secretWord.getWordId()));
+        result.setGame(findByGameId(gameId));
+        result.setResult(countGuessResult(wordInput.getWord(), findByGameId(gameId).getWord().getId()));
 
         resultRepository.save(result);
         logger.info("mapResultEntity: " + result.getGuessWord() + "eredmény: "+ result.getResult() + "játék száma: "+ result.getGame().getGameId());
@@ -110,6 +112,10 @@ public class GameService {
         newGame.setCreatedAt((LocalDateTime.now()));
         gameRepository.save(newGame);
         return newGame;
+    }
+
+    public List<GuessResult> getGuessWordsList() {
+        return null;
     }
 
 
