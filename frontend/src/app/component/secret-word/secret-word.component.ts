@@ -31,7 +31,8 @@ export class SecretWordComponent {
     this.gameService.getSecretWord().subscribe({
       next: value => {
         this.secretWord = value;
-        console.log("A kitalálandó szó: " + this.secretWord.secretWord)
+        this.gameService.setGameId(this.secretWord.gameId);
+        console.log("A kitalálandó szó: " + this.secretWord.secretWord + " ##gameID: " + this.secretWord.gameId)
         this.isGetSecretWord = true;
         this.gameService.updateSecretWord({ wordId: this.secretWord.wordId, secretWord: this.secretWord.secretWord, gameId: this.secretWord.gameId });
       },
