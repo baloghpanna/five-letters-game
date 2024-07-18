@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -59,6 +61,24 @@ public class GameService {
 
         }
         //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
+
+    }
+
+    public List<GuessResult> getGuessWordsList(Long gameId) {
+        Game game = findByGameId(gameId);
+        List<Result> resultList = resultRepository.findByGame(game);
+
+        return resultList.stream()
+                .map(this::mapResultEntityToGuessResultDto)
+                .collect(Collectors.toList());
+    }
+
+    private GuessResult mapResultEntityToGuessResultDto(Result result) {
+                GuessResult guessResult = new GuessResult();
+                guessResult.setUsedWord(result.getGuessWord());
+                guessResult.setResult(result.getResult());
+
+            return guessResult;
 
     }
 
@@ -114,16 +134,9 @@ public class GameService {
         return newGame;
     }
 
-    public List<GuessResult> getGuessWordsList() {
-        return null;
-    }
 
 
-//    public List<GuessResult> getGuessList(Long gameId) {
-//
-//
-//        return null;
-//    }
+
 
 
 }

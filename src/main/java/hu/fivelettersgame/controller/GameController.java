@@ -52,11 +52,11 @@ public class GameController {
         logger.info("saveGuessResult");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-//    @GetMapping
-//    public ResponseEntity<List<GuessResult>> getGuessWordsList() {
-//        logger.info("Get Guess Result List");
-//        List<GuessResult> guessResults = gameService.getGuessWordsList();
-//        return new ResponseEntity<>(guessResults, HttpStatus.OK);
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity<List<GuessResult>> getGuessWordsList(@PathVariable("id") Long gameId) {
+        logger.info("Get Guess Result List");
+        List<GuessResult> guessResults = gameService.getGuessWordsList(gameId);
+        return new ResponseEntity<>(guessResults, HttpStatus.OK);
+    }
 
 }

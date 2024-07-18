@@ -1,6 +1,20 @@
 <div id="outplayed-words-container">
+  <table>
+    <thead>
+    <tr>
+      <th>A szó</th>
+      <th>A találat</th>
+    </tr>
+    </thead>
+    <tbody>
+
   @for (item of guessedWords; track item) {
-    <mat-card class="outplayed-words-list">A szó: {{ item.usedWord }}</mat-card>
-    <mat-card class="outplayed-words-list">A találat: {{ item.result }}</mat-card>
+    <tr>
+    <td >{{ item.usedWord }}</td>
+    <td>{{ item.result }}</td>
+    </tr>
   }
+
+    </tbody>
+  </table>
 </div>

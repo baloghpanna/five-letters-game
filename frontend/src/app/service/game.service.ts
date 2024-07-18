@@ -4,7 +4,6 @@ import {WordSecretModel} from "../model/wordSecret.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {WordInputModel} from "../model/wordInput.model";
 import {GuessResultModel} from "../model/guessResult.model";
-import {GameInput} from "../model/gameInput.model";
 
 const BASE_URL = 'http://localhost:8081/api/words'
 
@@ -42,6 +41,6 @@ export class GameService {
   }
 
   getGuessList() : Observable<GuessResultModel[]> {
-    return this.http.get<GuessResultModel[]>(BASE_URL);
+    return this.http.get<GuessResultModel[]>(`${BASE_URL}/${this.gameId}`);
   }
 }

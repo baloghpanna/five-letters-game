@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -13,7 +13,6 @@ import {MatCard} from "@angular/material/card";
 import {GameInput} from "../../model/gameInput.model";
 
 
-
 @Component({
   selector: 'app-word-form',
   standalone: true,
@@ -21,11 +20,11 @@ import {GameInput} from "../../model/gameInput.model";
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
-export class WordFormComponent implements OnInit{
+export class WordFormComponent implements OnInit {
   @Input() wordSecretModel!: WordSecretModel;
   @Output() guessResult!: GuessResultModel[];
   inputWordForm: FormGroup;
-
+  @Output() guessMade: EventEmitter<void> = new EventEmitter();
 
 
   constructor(formBuilder: FormBuilder,
@@ -36,13 +35,14 @@ export class WordFormComponent implements OnInit{
     })
 
   }
+
   ngOnInit() {
     this.gameService.wordSecretModel$.subscribe(data => {
       this.wordSecretModel = data;
     });
   }
 
-  send(){
+  send() {
     // const gameInput: GameInput = {
     //   wordInput: { word: this.inputWordForm.value.userWord },
     //   wordSecret: this.wordSecretModel
@@ -54,9 +54,14 @@ export class WordFormComponent implements OnInit{
     }
 
     this.gameService.makeGuessTips(wordInput).subscribe({
-      next: () => {console.log("****A beküldött szó: " + wordInput.word.toString());},
+      next: () => {
+        console.log("****A beküldött szó: " + wordInput.word.toString());
+        this.guessMade.emit()
+      },
       error: err => console.log(err),
-      complete: () =>  this.inputWordForm.reset()
+      complete: () => {
+        this.inputWordForm.reset()
+      }
     })
   }
 

@@ -4,6 +4,9 @@
     <app-secret-word></app-secret-word>
   </div>
   <div class="content-component">
-    <app-word-form></app-word-form>
+    <app-word-form (guessMade)="wordListComponent.refreshList.emit()"></app-word-form>
+  </div>
+  <div class="content-component">
+    <app-word-list #wordListComponent></app-word-list>
   </div>
 </div>
