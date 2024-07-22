@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgForOf, NgStyle} from "@angular/common";
 
 @Component({
@@ -13,7 +13,9 @@ import {NgForOf, NgStyle} from "@angular/common";
 })
 export class WordLetterBoxComponent {
   @Input() word: string = '';
-  colors: string[] = [];
+  @Input() colors: string[] = [];
+  @Output() colorChange = new EventEmitter<string[]>();
+
 
   get boxes() {
     return this.word.split('');
@@ -27,6 +29,8 @@ export class WordLetterBoxComponent {
     } else {
       this.colors[index] = '';
     }
+
+    this.colorChange.emit(this.colors);
   }
 
   // changeColor(index: number, type: string) {

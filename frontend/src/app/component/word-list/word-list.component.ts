@@ -18,6 +18,7 @@ export class WordListComponent {
 
   guessedWords!: GuessResultModel[];
   @Input() refreshList: EventEmitter<void> = new EventEmitter<void>();
+  wordColors: { [word: string]: string[] } = {};
 
 
 
@@ -32,10 +33,18 @@ export class WordListComponent {
     this.gameService.getGuessList().subscribe(data => {
       this.guessedWords = data;
       console.log("a modell hossza-list: " + this.guessedWords.length);
-    })
 
+      this.guessedWords.forEach((word) => {
+        if(!this.wordColors[word.usedWord]){
+          this.wordColors[word.usedWord] = Array(word.usedWord.length).fill('');
+        }
+      });
+    });
   }
 
+  updateWordColors(word: string, colors: string[]) {
+    this.wordColors[word] = colors;
+  }
 
 
 }

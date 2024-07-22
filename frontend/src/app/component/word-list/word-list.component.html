@@ -10,7 +10,13 @@
 
   @for (item of guessedWords; track item) {
     <tr>
-      <td><app-word-letter-box [word]="item.usedWord"></app-word-letter-box></td>
+      <td><app-word-letter-box
+        [word]="item.usedWord"
+        [colors]="wordColors[item.usedWord]"
+        (colorChange)="updateWordColors(item.usedWord, $event)"
+      >
+
+      </app-word-letter-box></td>
     <td>{{ item.result }}</td>
     </tr>
   }
