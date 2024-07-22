@@ -10,7 +10,7 @@
 
   @for (item of guessedWords; track item) {
     <tr>
-    <td >{{ item.usedWord }}</td>
+      <td><app-word-letter-box [word]="item.usedWord"></app-word-letter-box></td>
     <td>{{ item.result }}</td>
     </tr>
   }

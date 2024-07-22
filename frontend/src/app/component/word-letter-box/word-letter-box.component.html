@@ -1,0 +1,17 @@
+@for (letter of boxes; track letter; let i = $index) {
+
+  <div
+     class="letter-box"
+     [ngStyle]="{'background-color': colors[i]}"
+     (click)="changeColor(i)">
+  {{ letter }}
+</div>
+
+<!--  <div-->
+<!--    class="letter-box"-->
+<!--    [ngStyle]="{'background-color': colors[i]}"-->
+<!--    (click)="changeColor(i, 'single')"-->
+<!--    (dblclick)="handleDoubleClick($event, i)">-->
+<!--    {{ letter }}-->
+<!--  </div>-->
+}

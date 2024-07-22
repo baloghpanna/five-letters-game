@@ -43,11 +43,6 @@ export class WordFormComponent implements OnInit {
   }
 
   send() {
-    // const gameInput: GameInput = {
-    //   wordInput: { word: this.inputWordForm.value.userWord },
-    //   wordSecret: this.wordSecretModel
-    // };
-    // console.log("A beküldött szó: " + gameInput.wordInput.word);
 
     const wordInput: WordInputModel = {
       word: this.inputWordForm.value.userWord
@@ -65,18 +60,5 @@ export class WordFormComponent implements OnInit {
     })
   }
 
-  // makeGuess() {
-  //   const gameInput: GameInput = {
-  //     inputWord: this.inputWordForm.value,
-  //     secretWord: this.wordSecretModel
-  //   }
-  //   this.gameService.makeGuessTips(gameInput).subscribe( response => {
-  //       console.log('Guess saved successfully', response);
-  //     },
-  //     error => {
-  //       console.error('Error saving guess', error);
-  //     }
-  //   );
 
-  // }
 }

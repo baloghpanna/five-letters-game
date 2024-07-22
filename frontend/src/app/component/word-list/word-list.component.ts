@@ -2,22 +2,24 @@ import {Component, EventEmitter, Input} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {GameService} from "../../service/game.service";
+import {WordLetterBoxComponent} from "../word-letter-box/word-letter-box.component";
 
 @Component({
   selector: 'app-word-list',
   standalone: true,
   imports: [
-    MatCard
+    MatCard,
+    WordLetterBoxComponent
   ],
   templateUrl: './word-list.component.html',
   styleUrl: './word-list.component.scss'
 })
 export class WordListComponent {
-  // @Input() guessedWords!: GuessResultModel[];
-  guessedWords: GuessResultModel[] | undefined;
+
+  guessedWords!: GuessResultModel[];
   @Input() refreshList: EventEmitter<void> = new EventEmitter<void>();
-  // outplayedWords: WordListModel[] = [];
-  // outplayedWords: any[] = ['sátor', 'sisak', 'fárad', 'zabla'];
+
+
 
   constructor(private gameService: GameService) {
     // @ts-ignore
@@ -33,6 +35,8 @@ export class WordListComponent {
     })
 
   }
+
+
 
 }
 
