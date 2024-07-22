@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {lengthValidator} from "../../validators/length-validator";
@@ -10,7 +10,6 @@ import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
 import {MatCard} from "@angular/material/card";
-import {GameInput} from "../../model/gameInput.model";
 
 
 @Component({
