@@ -10,12 +10,13 @@ import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
 import {MatCard} from "@angular/material/card";
+import {NgIf} from "@angular/common";
 
 
 @Component({
   selector: 'app-word-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButton, WordListComponent, MatCard],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButton, WordListComponent, MatCard, NgIf],
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
@@ -24,6 +25,7 @@ export class WordFormComponent implements OnInit {
   @Output() guessResult!: GuessResultModel[];
   inputWordForm: FormGroup;
   @Output() guessMade: EventEmitter<void> = new EventEmitter();
+  errorMessage: string | null = null;
 
 
   constructor(formBuilder: FormBuilder,
@@ -50,9 +52,12 @@ export class WordFormComponent implements OnInit {
     this.gameService.makeGuessTips(wordInput).subscribe({
       next: () => {
         console.log("****A beküldött szó: " + wordInput.word.toString());
+        this.errorMessage = null;
         this.guessMade.emit()
       },
-      error: err => console.log(err),
+      error: err => {
+        this.errorMessage = err.error.message;
+      },
       complete: () => {
         this.inputWordForm.reset()
       }
