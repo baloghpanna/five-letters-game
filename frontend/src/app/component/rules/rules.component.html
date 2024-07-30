@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Játékszabályok</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>A játék célja</h3>
+  <p>Találd ki a titkos 5 betűs szót!</p>
+  <h3>Hogyan?</h3>
+  <p>5 betűs értelmes magyar szavak segítségével kitalálhatod a titkos szót.</p>
+  <p>Használd a beküldés mezőt, miután kitaláltad melyik szóval szeretnél próbálkozni.
+  Ezután kapsz egy eredményt, hogy hány egyezés van a te szavad és a titkos szó között.
+  Ezek alapján tippelj addig, amíg ki nem találod mi lehet az elrejtett szó.</p>
+  <h3>FONTOS</h3>
+  <ul>
+    <li>A szavaknak 5 betűseknek kell lenniük.</li>
+    <li>A leírt betűk száma számít pl.: a „gy”, „ty”, „cs” stb. 2 betűnek számít</li>
+    <li>A szavaknak értelmes magyar szavaknak kell lenniük.</li>
+    <li>A találat száma csak az egyezések számát jelzi, az elhelyezkedést nem.</li>
+  </ul>
+  <h4>Beküldtem egy szót, miért nem látom?</h4>
+  <p>Ez akkor fordulhat elő, ha egy olyan szóval próbálkozol, amit a játék még nem ismer.
+    Lehet, hogy csak gépelési hiba. Próbáld újra, vagy válassz egy másik szót! </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Értem</button>
+</mat-dialog-actions>
