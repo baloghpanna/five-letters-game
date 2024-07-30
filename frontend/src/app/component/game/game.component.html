@@ -1,15 +1,18 @@
 <div class="all-component-container">
+  <h1>Találd ki a titkos szót!</h1>
   <app-abc></app-abc>
   <div>
     <app-secret-word></app-secret-word>
   </div>
   <div class="content-component">
-    <div>
-      <app-word-form (guessMade)="wordListComponent.refreshList.emit()"></app-word-form>
-    </div>
-    <div>
-      <app-word-list #wordListComponent></app-word-list>
-    </div>
+
+      <div>
+        <app-word-form (guessMade)="wordListComponent.refreshList.emit()"></app-word-form>
+      </div>
+      <div>
+        <app-word-list #wordListComponent></app-word-list>
+      </div>
+
   </div>
   <button mat-raised-button color="primary" (click)="openDialog()">Hogyan játszam?</button>
 
