@@ -1,13 +1,53 @@
 <div class="card-holder">
-    @for (item of abc; track abc) {
+  @for (item of abc; track abc) {
     @if (!item.isFlipped) {
-      <div class="card front" (click)="setThis(item, true)">{{ item.name }}</div>
+      <div class="card front"
+           cdkDropList
+           #abcList="cdkDropList"
+           [cdkDropListData]="abc"
+           (cdkDropListDropped)="drop($event)"
+           (click)="setThis(item, true)"
+      >
+        {{ item.name }}
+      </div>
     }
     @if (item.isFlipped) {
       <div class="card back" (click)="setThis(item, false)"></div>
     }
   }
 </div>
+<div class="card-holder">
+  <h3>Ezek a betűk biztosan szerepelnek benne:</h3>
+  @for (item of letters; track letters) {
+    <div class="card front"
+         cdkDropList #lettersList="cdkDropList"
+         [cdkDropListData]="letters"
+         (cdkDropListDropped)="drop($event)"
+         (click)="setThis(item, true)"
+    >
+      {{ item.name }}
+    </div>
+
+  }
+</div>
+
+<!--<div class="card-holder" >-->
+<!--    @for (item of abc; track abc) {-->
+<!--    @if (!item.isFlipped) {-->
+<!--      <div class="card front"-->
+<!--           cdkDrag-->
+<!--           [cdkDragData]="item"-->
+<!--           (cdkDragStarted)="onDragStart($event)"-->
+<!--           (cdkDragEnded)="onDragEnd($event)"-->
+<!--           (click)="setThis(item, true)"-->
+<!--      >-->
+<!--        {{ item.name }}</div>-->
+<!--    }-->
+<!--    @if (item.isFlipped) {-->
+<!--      <div class="card back" (click)="setThis(item, false)"></div>-->
+<!--    }-->
+<!--  }-->
+<!--</div>-->
 
 <!--<div class="card-holder">-->
 <!--  @for (item of abc; track abc) {-->
