@@ -1,0 +1,30 @@
+<div cdkDropList
+     id="available-letters"
+     class="card-container"
+     [cdkDropListData]="letters"
+     [cdkDropListConnectedTo]="['needed-letters']"
+     (cdkDropListDropped)="drop($event)">
+  <div *ngFor="let letter of letters; let i = index"
+       cdkDrag
+       [cdkDragDisabled]="flipped[i]"
+       class="card"
+       [class.flipped]="flipped[i]"
+       (click)="flipCard(i)">
+    <div class="card-front">{{ letter }}</div>
+    <div class="card-back"></div>
+  </div>
+</div>
+
+<h2>Szükséges betűk</h2>
+<div cdkDropList
+     id="needed-letters"
+     class="needed-container"
+     [cdkDropListData]="neededLetters"
+     [cdkDropListConnectedTo]="['available-letters']"
+     (cdkDropListDropped)="drop($event)">
+  <div *ngFor="let letter of neededLetters"
+       cdkDrag
+       class="card">
+    <div class="card-front">{{ letter }}</div>
+  </div>
+</div>

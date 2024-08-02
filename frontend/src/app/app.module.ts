@@ -10,7 +10,7 @@ import {WordListComponent} from "./component/word-list/word-list.component";
 import {SecretWordComponent} from "./component/secret-word/secret-word.component";
 import {HttpClientModule} from '@angular/common/http';
 import {GameComponent} from "./component/game/game.component";
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AppComponent
@@ -19,6 +19,7 @@ import {GameComponent} from "./component/game/game.component";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    DragDropModule,
     AbcComponent,
     WordFormComponent,
     WordListComponent,

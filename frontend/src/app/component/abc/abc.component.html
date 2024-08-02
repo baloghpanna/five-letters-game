@@ -4,7 +4,9 @@
       <div class="card front"
            cdkDropList
            #abcList="cdkDropList"
+
            [cdkDropListData]="abc"
+           [cdkDropListConnectedTo]="['letterList']"
            (cdkDropListDropped)="drop($event)"
            (click)="setThis(item, true)"
       >
@@ -20,8 +22,10 @@
   <h3>Ezek a betűk biztosan szerepelnek benne:</h3>
   @for (item of letters; track letters) {
     <div class="card front"
-         cdkDropList #lettersList="cdkDropList"
+         cdkDropList
+         #letterList="cdkDropList"
          [cdkDropListData]="letters"
+         [cdkDropListConnectedTo]="['abcList']"
          (cdkDropListDropped)="drop($event)"
          (click)="setThis(item, true)"
     >
@@ -59,3 +63,6 @@
 <!--    }-->
 <!--  }-->
 <!--</div>-->
+
+
+<!--id="letter-list"-->
