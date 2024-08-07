@@ -4,6 +4,7 @@ import hu.fivelettersgame.controller.GameController;
 import hu.fivelettersgame.domain.Game;
 import hu.fivelettersgame.domain.Result;
 import hu.fivelettersgame.domain.Word;
+import hu.fivelettersgame.domain.dto.incoming.Solution;
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
@@ -32,7 +33,6 @@ public class GameService {
     private ResultRepository resultRepository;
     private GameRepository gameRepository;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
-
 
 
     @Autowired
@@ -74,11 +74,11 @@ public class GameService {
     }
 
     private GuessResult mapResultEntityToGuessResultDto(Result result) {
-                GuessResult guessResult = new GuessResult();
-                guessResult.setUsedWord(result.getGuessWord());
-                guessResult.setResult(result.getResult());
+        GuessResult guessResult = new GuessResult();
+        guessResult.setUsedWord(result.getGuessWord());
+        guessResult.setResult(result.getResult());
 
-            return guessResult;
+        return guessResult;
 
     }
 
@@ -90,7 +90,7 @@ public class GameService {
         result.setResult(countGuessResult(wordInput.getWord(), findByGameId(gameId).getWord().getId()));
 
         resultRepository.save(result);
-        logger.info("mapResultEntity: " + result.getGuessWord() + "eredmény: "+ result.getResult() + "játék száma: "+ result.getGame().getGameId());
+        logger.info("mapResultEntity: " + result.getGuessWord() + "eredmény: " + result.getResult() + "játék száma: " + result.getGame().getGameId());
 
         return result;
     }
@@ -135,9 +135,13 @@ public class GameService {
     }
 
 
-
-
-
-
+    public Boolean checkSolution(Solution solution, Long gameId) {
+        Boolean solutionIsCorrect = solution.getIsCorrect();
+        Game game = findByGameId(gameId);
+        if (wordRepository.findById(game.getWord().getId()).orElseThrow(EntityNotFoundException::new).getWord().equals(solution.getSolutionWord())) {
+            solution.setIsCorrect(true);
+        }
+        return solutionIsCorrect;
+    }
 }
 

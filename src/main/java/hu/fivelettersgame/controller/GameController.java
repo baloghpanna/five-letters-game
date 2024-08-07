@@ -1,6 +1,7 @@
 package hu.fivelettersgame.controller;
 
 import hu.fivelettersgame.domain.dto.incoming.GameInput;
+import hu.fivelettersgame.domain.dto.incoming.Solution;
 import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.GuessResult;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
@@ -57,6 +58,14 @@ public class GameController {
         logger.info("Get Guess Result List");
         List<GuessResult> guessResults = gameService.getGuessWordsList(gameId);
         return new ResponseEntity<>(guessResults, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/solution")
+    public ResponseEntity<Boolean> solution(@PathVariable("id") Long gameId, @RequestParam("solution") Solution solution) {
+        logger.info("--------------solution" + solution.getSolutionWord());
+        boolean isCorrect = gameService.checkSolution(solution, gameId);
+        logger.info("checkSolution");
+        return new ResponseEntity<>(isCorrect, HttpStatus.OK);
     }
 
 }
