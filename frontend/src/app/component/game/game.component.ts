@@ -7,6 +7,7 @@ import {WordSecretModel} from "../../model/wordSecret.model";
 import {MatDialog} from "@angular/material/dialog";
 import {RulesComponent} from "../rules/rules.component";
 import {MatButton} from "@angular/material/button";
+import {SolutionComponent} from "../solution/solution.component";
 
 @Component({
   selector: 'app-game',
@@ -16,7 +17,8 @@ import {MatButton} from "@angular/material/button";
     SecretWordComponent,
     WordFormComponent,
     WordListComponent,
-    MatButton
+    MatButton,
+    SolutionComponent
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'

@@ -1,0 +1,21 @@
+<div id="input-form">
+  <form class="input-form" [formGroup]="inputSolutionWord">
+    <mat-form-field class="input-full-width">
+      <mat-label>A megoldásom</mat-label>
+      <input type="text"
+             matInput
+             formControlName="solutionWord"
+      >
+      @if (inputSolutionWord.controls['solutionWord'].errors?.['exactLength']) {
+        <mat-error>Kérlek adj meg egy 5 betűs szót, ahol a leírt betűk számítanak</mat-error>
+      }
+    </mat-form-field>
+  </form>
+  <button mat-raised-button
+          color="primary"
+          [disabled]="inputSolutionWord.invalid"
+          (click)="sendSolution()"
+  >
+    Ez lesz a megoldás!
+  </button>
+</div>

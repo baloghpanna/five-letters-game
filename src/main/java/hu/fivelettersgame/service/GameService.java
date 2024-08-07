@@ -135,11 +135,17 @@ public class GameService {
     }
 
 
-    public Boolean checkSolution(Solution solution, Long gameId) {
+    public Boolean checkSolution(String solutionWord, Long gameId) {
+        Solution solution = new Solution();
+        solution.setSolutionWord(solutionWord);
+        solution.setIsCorrect(false);
+
         Boolean solutionIsCorrect = solution.getIsCorrect();
         Game game = findByGameId(gameId);
+
         if (wordRepository.findById(game.getWord().getId()).orElseThrow(EntityNotFoundException::new).getWord().equals(solution.getSolutionWord())) {
             solution.setIsCorrect(true);
+            solutionIsCorrect = solution.getIsCorrect();
         }
         return solutionIsCorrect;
     }

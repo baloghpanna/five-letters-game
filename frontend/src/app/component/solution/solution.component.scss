@@ -1,0 +1,22 @@
+#input-form {
+  max-width: 300px;
+  padding: 15px 15px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .input-form {
+    min-width: 150px;
+    max-width: 200px;
+    width: 100%;
+    margin: 5px;
+
+    .input-full-width {
+      width: 100%;
+    }
+  }
+  button:disabled {
+    background-color: #cccccc; /* Világosszürke háttér */
+    cursor: not-allowed; /* Nem engedélyezett kurzor */
+  }
+}

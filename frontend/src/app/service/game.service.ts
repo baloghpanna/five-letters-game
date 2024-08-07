@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {WordSecretModel} from "../model/wordSecret.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {WordInputModel} from "../model/wordInput.model";
 import {GuessResultModel} from "../model/guessResult.model";
+import {SolutionInputModel} from "../model/solutionInput.model";
 
 const BASE_URL = 'http://localhost:8081/api/words'
 
@@ -43,4 +44,18 @@ export class GameService {
   getGuessList() : Observable<GuessResultModel[]> {
     return this.http.get<GuessResultModel[]>(`${BASE_URL}/${this.gameId}`);
   }
+
+  checkSolution(solution: SolutionInputModel): Observable<boolean> {
+    const params = new HttpParams()
+      .set('solutionWord', solution.solutionWord);
+    return this.http.get<boolean>(`${BASE_URL}/${this.gameId}/solution`, {params});
+  }
+
+  // checkSolution(solution: SolutionInputModel):
+  // checkSolution(solutionWord: String): Observable<boolean> {
+  //   const params = new HttpParams()
+  //     .set('solutionWord', solutionWord);
+  //   return this.http.get<boolean>(`${BASE_URL}/${this.gameId}/solution`, {params});
+  // }
+
 }

@@ -61,9 +61,9 @@ public class GameController {
     }
 
     @GetMapping("{id}/solution")
-    public ResponseEntity<Boolean> solution(@PathVariable("id") Long gameId, @RequestParam("solution") Solution solution) {
-        logger.info("--------------solution" + solution.getSolutionWord());
-        boolean isCorrect = gameService.checkSolution(solution, gameId);
+    public ResponseEntity<Boolean> solution(@PathVariable("id") Long gameId, @RequestParam("solutionWord") String solutionWord) {
+        logger.info("--------------solution" + solutionWord);
+        boolean isCorrect = gameService.checkSolution(solutionWord, gameId);
         logger.info("checkSolution");
         return new ResponseEntity<>(isCorrect, HttpStatus.OK);
     }
