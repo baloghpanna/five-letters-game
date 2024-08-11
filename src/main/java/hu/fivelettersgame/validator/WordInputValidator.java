@@ -31,9 +31,7 @@ public class WordInputValidator implements Validator {
         if (wordInput.getWord() == null || wordInput.getWord().isEmpty() || wordInput.getWord().isBlank()) {
             errors.rejectValue("word", "wordInput.getWord.empty");
         }
-        if ((gameRepository.checkInputWord(wordInput.getWord()) == 0)) {
-            errors.rejectValue("word", "wordInput.getWord.dontFind");
-        }
+
     }
 }
 

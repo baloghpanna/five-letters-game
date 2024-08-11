@@ -29,9 +29,9 @@ export class GameService {
     return this.http.get<WordSecretModel>(BASE_URL);
   }
 
-  makeGuessTips(inputWord: WordInputModel) {
+  makeGuessTips(inputWord: WordInputModel): Observable<boolean> {
     console.log("A beküldött szó: " + inputWord.word + " ---gameID: " + this.gameId);
-    return this.http.post(`${BASE_URL}/${this.gameId}/guess`, inputWord);
+    return this.http.post<boolean>(`${BASE_URL}/${this.gameId}/guess`, inputWord);
   }
 
   private wordSecretObject = new BehaviorSubject<WordSecretModel>({secretWord: '', wordId: 0, gameId: 0});

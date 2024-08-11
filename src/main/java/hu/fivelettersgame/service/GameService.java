@@ -54,14 +54,14 @@ public class GameService {
     }
 
 
-    public void saveGuessResult(WordInput wordInput, Long gameId) {
+    public Boolean saveGuessResult(WordInput wordInput, Long gameId) {
+        boolean isFindWord = false;
         if (wordRepository.checkInputWord(wordInput.getWord()) == 1) {
             Result toSave = mapResultEntity(wordInput, gameId);
-
+            isFindWord = true;
 
         }
-        //TODO hibaüzenet küldése, ha adatbázisban nem szereplő szót küld le a felhasználó
-
+        return isFindWord;
     }
 
     public List<GuessResult> getGuessWordsList(Long gameId) {

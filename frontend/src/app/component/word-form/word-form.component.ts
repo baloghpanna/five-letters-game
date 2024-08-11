@@ -11,12 +11,22 @@ import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
 import {MatCard} from "@angular/material/card";
 import {NgIf} from "@angular/common";
+import {MessageNoWordComponent} from "../message-no-word/message-no-word.component";
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 
 @Component({
   selector: 'app-word-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButton, WordListComponent, MatCard, NgIf],
+  imports: [FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButton,
+    WordListComponent,
+    MatCard,
+    NgIf,
+    MatDialogModule],
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
@@ -29,6 +39,7 @@ export class WordFormComponent implements OnInit {
 
 
   constructor(formBuilder: FormBuilder,
+              public dialog: MatDialog,
               private gameService: GameService
   ) {
     this.inputWordForm = formBuilder.group({
@@ -50,10 +61,14 @@ export class WordFormComponent implements OnInit {
     }
 
     this.gameService.makeGuessTips(wordInput).subscribe({
-      next: () => {
-        console.log("****A beküldött szó: " + wordInput.word.toString());
-        this.errorMessage = null;
-        this.guessMade.emit()
+      next: (result) => {
+        if (result) {
+          console.log("****A beküldött szó: " + wordInput.word.toString());
+          this.errorMessage = null;
+          this.guessMade.emit()
+        } else {
+          this.openDialog();
+        }
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -64,5 +79,8 @@ export class WordFormComponent implements OnInit {
     })
   }
 
+  openDialog(): void {
+    this.dialog.open(MessageNoWordComponent);
+  }
 
 }

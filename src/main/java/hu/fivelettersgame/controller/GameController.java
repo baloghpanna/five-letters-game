@@ -46,12 +46,12 @@ public class GameController {
 
 
     @PostMapping("{id}/guess")
-    public ResponseEntity<Void> guessResult(@PathVariable("id") Long gameId, @RequestBody WordInput wordInput) {
+    public ResponseEntity<Boolean> guessResult(@PathVariable("id") Long gameId, @RequestBody WordInput wordInput) {
         logger.info("--------------guessResult" + wordInput.getWord());
 
-        gameService.saveGuessResult(wordInput, gameId);
+       Boolean isFindWord = gameService.saveGuessResult(wordInput, gameId);
         logger.info("saveGuessResult");
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(isFindWord, HttpStatus.CREATED);
     }
     @GetMapping("{id}")
     public ResponseEntity<List<GuessResult>> getGuessWordsList(@PathVariable("id") Long gameId) {
