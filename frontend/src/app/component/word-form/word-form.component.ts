@@ -40,11 +40,11 @@ export class WordFormComponent implements OnInit {
 
   constructor(formBuilder: FormBuilder,
               public dialog: MatDialog,
-              private gameService: GameService
+              protected gameService: GameService
   ) {
     this.inputWordForm = formBuilder.group({
-      userWord: ["", lengthValidator(5)]
-    })
+      userWord: [{value: '', disabled: this.gameService.getGameId() === 0}, [lengthValidator(5) ]]
+    });
 
   }
 
