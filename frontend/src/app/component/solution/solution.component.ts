@@ -8,6 +8,9 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {SolutionInputModel} from "../../model/solutionInput.model";
+import {normalizeExtraEntryPoints} from "@angular-devkit/build-angular/src/tools/webpack/utils/helpers";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MessageSolutionComponent} from "../message-solution/message-solution.component";
 
 @Component({
   selector: 'app-solution',
@@ -21,7 +24,8 @@ import {SolutionInputModel} from "../../model/solutionInput.model";
     MatInput,
     MatLabel,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   templateUrl: './solution.component.html',
   styleUrl: './solution.component.scss'
@@ -30,7 +34,8 @@ export class SolutionComponent {
   inputSolutionWord: FormGroup;
 
   constructor(formBuilder: FormBuilder,
-              private gameService: GameService
+              private gameService: GameService,
+              public dialog: MatDialog,
   ) {
     this.inputSolutionWord = formBuilder.group({
       solutionWord: ["", lengthValidator(5)]
@@ -39,9 +44,19 @@ export class SolutionComponent {
   }
 
   sendSolution(){
-    this.gameService.checkSolution({solutionWord: this.inputSolutionWord.value.solutionWord, isCorrect: false}).subscribe(isCorrect =>{
-      console.log('Megoldás helyes:', isCorrect);
+    this.gameService.checkSolution({solutionWord: this.inputSolutionWord.value.solutionWord, isCorrect: false}).subscribe({
+     next: isCorrect => {
+       if (isCorrect === true) {
+         this.gameService.setGameId(0);
+         console.log('Megoldás helyes:', isCorrect);
+         this.openDialog();
+       }
+     }
+
     });
   }
 
+  private openDialog() {
+  this.dialog.open(MessageSolutionComponent)
+  }
 }

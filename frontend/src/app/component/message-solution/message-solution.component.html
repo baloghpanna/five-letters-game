@@ -1,0 +1,18 @@
+@if (data.isSuccess) {
+  <mat-dialog-content>
+    <p>Gratulálok, megfejtetted a rejtvényt!</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Szuper!!</button>
+  </mat-dialog-actions>
+}
+
+@if (!data.isSuccess) {
+  <mat-dialog-content>
+    <p>Sajnos nem ez a szó, kérlek gondolkodj még egy kicsit!</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Újra próbálom</button>
+  </mat-dialog-actions>
+}
+
