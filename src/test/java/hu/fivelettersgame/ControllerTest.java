@@ -2,6 +2,7 @@ package hu.fivelettersgame;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.fivelettersgame.controller.GameController;
+import hu.fivelettersgame.domain.dto.incoming.WordInput;
 import hu.fivelettersgame.domain.dto.outgoing.WordSecret;
 import hu.fivelettersgame.exception.GlobalExceptionHandler;
 import hu.fivelettersgame.service.GameService;
@@ -62,12 +63,28 @@ public class ControllerTest {
                 .andExpect(jsonPath("$.wordId").value(1))
                 .andExpect(jsonPath("$.gameId").value(1));
 
-//                .andExpect(content().json(asJsonString(wordSecret)));
-
         verify(gameServiceMock, times(1)).getSecretWord();
 
         verifyNoMoreInteractions(gameServiceMock);
     }
+//    @Test
+//    void testGuessResult() throws Exception {
+//        when(gameServiceMock.saveGuessResult(any(), anyLong())).thenReturn(true);
+//
+//        this.mockMvc.perform(post("/api/words/1/guess")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString("halom")))
+//                .andExpect(status().isCreated())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$").value(true));
+//
+//        verify(gameServiceMock, times(1)).saveGuessResult(any(), anyLong());
+//
+//        verifyNoMoreInteractions(gameServiceMock);
+//
+//    }
+
+
     private MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 
