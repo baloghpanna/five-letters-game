@@ -43,7 +43,7 @@ export class WordFormComponent implements OnInit {
               protected gameService: GameService
   ) {
     this.inputWordForm = formBuilder.group({
-      userWord: [{value: '', disabled: this.gameService.getGameId() === 0}, [lengthValidator(5) ]]
+      userWord: [{value: ''}, [lengthValidator(5) ]]
     });
 
   }

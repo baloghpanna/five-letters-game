@@ -11,6 +11,7 @@ import {SolutionInputModel} from "../../model/solutionInput.model";
 import {normalizeExtraEntryPoints} from "@angular-devkit/build-angular/src/tools/webpack/utils/helpers";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MessageSolutionComponent} from "../message-solution/message-solution.component";
+// import {MessageSolutionComponent} from "../message-solution/message-solution.component";
 
 @Component({
   selector: 'app-solution',
@@ -46,17 +47,23 @@ export class SolutionComponent {
   sendSolution(){
     this.gameService.checkSolution({solutionWord: this.inputSolutionWord.value.solutionWord, isCorrect: false}).subscribe({
      next: isCorrect => {
-       if (isCorrect === true) {
+       if (isCorrect) {
          this.gameService.setGameId(0);
          console.log('Megoldás helyes:', isCorrect);
-         this.openDialog();
+         this.openDialog(isCorrect);
+       } else {
+          console.log('Megoldás helytelen:', isCorrect);
+          this.openDialog(isCorrect);
        }
      }
 
     });
   }
 
-  private openDialog() {
-  this.dialog.open(MessageSolutionComponent)
+  private openDialog(isSuccess: boolean) {
+  this.dialog.open(MessageSolutionComponent,
+    {
+      data: { isSuccess: isSuccess }
+    });
   }
 }
