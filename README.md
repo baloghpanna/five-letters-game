@@ -6,7 +6,7 @@ A játék menete során a tippek értéket kapnak, így kilogikázható, hogy me
 Az éppen akutális állapot a develop branchen tekinthető meg.
 
 Tervek a folytatáshoz:
-- reszponzivitás nővelése
+- reszponzivitás növelése
 - a kis- és nagybetűk kezelése
 - az abc betűk drag and drop módon való mozgatása
 - új, az adatbázis által nem ismert szavak kezelése
