@@ -5,4 +5,16 @@ A játék menete során a tippek értéket kapnak, így kilogikázható, hogy me
 
 Az éppen akutális állapot a develop branchen tekinthető meg.
 
+Tervek a folytatáshoz:
+- reszponzivitás nővelése
+- a kis- és nagybetűk kezelése
+- az abc betűk drag and drop módon való mozgatása
+- új, az adatbázis által nem ismert szavak kezelése
+- JUnit tesztek írásának folytatása
+- Selenium tesztek
+- -------------------------
+- multiplayer funkció
+- felhasználókezelés
+- felhasználói statisztikák
+
 Angular 17, Java 17, Spring Boot 3.2.5, MySQL
