@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GameService} from "../../service/game.service";
 import {lengthValidator} from "../../validators/length-validator";
@@ -8,6 +8,7 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {SolutionInputModel} from "../../model/solutionInput.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-solution',
@@ -26,15 +27,29 @@ import {SolutionInputModel} from "../../model/solutionInput.model";
   templateUrl: './solution.component.html',
   styleUrl: './solution.component.scss'
 })
-export class SolutionComponent {
-  inputSolutionWord: FormGroup;
+export class SolutionComponent implements OnInit, OnDestroy {
+  inputSolutionWord!: FormGroup;
+  private subscription!: Subscription;
 
-  constructor(formBuilder: FormBuilder,
-              private gameService: GameService
+  constructor(private formBuilder: FormBuilder,
+              protected gameService: GameService
   ) {
-    this.inputSolutionWord = formBuilder.group({
+
+
+  }
+
+  ngOnInit() {
+    this.inputSolutionWord = this.formBuilder.group({
       solutionWord: ["", lengthValidator(5)]
     })
+
+    this.subscription = this.gameService.gameId$.subscribe(gameId => {
+      if (gameId === 0) {
+        this.inputSolutionWord.disable();  // Ha 0, disable-ölöd az űrlapot
+      } else {
+        this.inputSolutionWord.enable();   // Ha nem 0, enable-ölöd
+      }
+    });
 
   }
 
@@ -42,6 +57,12 @@ export class SolutionComponent {
     this.gameService.checkSolution({solutionWord: this.inputSolutionWord.value.solutionWord, isCorrect: false}).subscribe(isCorrect =>{
       console.log('Megoldás helyes:', isCorrect);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

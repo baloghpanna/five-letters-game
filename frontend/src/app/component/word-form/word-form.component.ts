@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -21,7 +21,7 @@ import {Subscription} from "rxjs";
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
-export class WordFormComponent implements OnInit {
+export class WordFormComponent implements OnInit, OnDestroy {
   @Input() wordSecretModel!: WordSecretModel;
   @Output() guessResult!: GuessResultModel[];
   inputWordForm!: FormGroup;

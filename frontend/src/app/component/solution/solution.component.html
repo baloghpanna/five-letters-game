@@ -13,7 +13,7 @@
   </form>
   <button mat-raised-button
           color="primary"
-          [disabled]="inputSolutionWord.invalid"
+          [disabled]="inputSolutionWord.invalid || gameService.getGameId() === 0"
           (click)="sendSolution()"
   >
     Ez lesz a megoldás!
