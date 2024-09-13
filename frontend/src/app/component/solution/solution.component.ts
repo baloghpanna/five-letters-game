@@ -45,9 +45,9 @@ export class SolutionComponent implements OnInit, OnDestroy {
 
     this.subscription = this.gameService.gameId$.subscribe(gameId => {
       if (gameId === 0) {
-        this.inputSolutionWord.disable();  // Ha 0, disable-ölöd az űrlapot
+        this.inputSolutionWord.disable();
       } else {
-        this.inputSolutionWord.enable();   // Ha nem 0, enable-ölöd
+        this.inputSolutionWord.enable();
       }
     });
 

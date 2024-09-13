@@ -44,9 +44,9 @@ export class WordFormComponent implements OnInit, OnDestroy {
 
     this.subscription = this.gameService.gameId$.subscribe(gameId => {
       if (gameId === 0) {
-        this.inputWordForm.disable();  // Ha 0, disable-ölöd az űrlapot
+        this.inputWordForm.disable();
       } else {
-        this.inputWordForm.enable();   // Ha nem 0, enable-ölöd
+        this.inputWordForm.enable();
       }
     });
 
