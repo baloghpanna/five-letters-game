@@ -11,14 +11,15 @@
       }
     </mat-form-field>
   </form>
-  <button mat-raised-button
-          color="primary"
-          [disabled]="inputWordForm.invalid"
-          (click)="send()"
-  >
-    Beküld
-  </button>
-  <mat-card *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-card>
+    <button mat-raised-button
+            color="primary"
+            [disabled]="inputWordForm.invalid || gameService.getGameId() === 0"
+            (click)="send()"
+    >
+      Beküld
+    </button>
+    <mat-card *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-card>
+
 </div>
 
 <!--<app-word-list [guessedWords]="guessResult"></app-word-list>-->

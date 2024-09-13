@@ -11,6 +11,7 @@ import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
 import {MatCard} from "@angular/material/card";
 import {NgIf} from "@angular/common";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -23,21 +24,32 @@ import {NgIf} from "@angular/common";
 export class WordFormComponent implements OnInit {
   @Input() wordSecretModel!: WordSecretModel;
   @Output() guessResult!: GuessResultModel[];
-  inputWordForm: FormGroup;
+  inputWordForm!: FormGroup;
   @Output() guessMade: EventEmitter<void> = new EventEmitter();
   errorMessage: string | null = null;
+  private subscription!: Subscription;
 
 
-  constructor(formBuilder: FormBuilder,
-              private gameService: GameService
+  constructor(private formBuilder: FormBuilder,
+              protected gameService: GameService
   ) {
-    this.inputWordForm = formBuilder.group({
-      userWord: ["", lengthValidator(5)]
-    })
+
 
   }
 
   ngOnInit() {
+    this.inputWordForm = this.formBuilder.group({
+      userWord: ["", lengthValidator(5)]
+    });
+
+    this.subscription = this.gameService.gameId$.subscribe(gameId => {
+      if (gameId === 0) {
+        this.inputWordForm.disable();  // Ha 0, disable-ölöd az űrlapot
+      } else {
+        this.inputWordForm.enable();   // Ha nem 0, enable-ölöd
+      }
+    });
+
     this.gameService.wordSecretModel$.subscribe(data => {
       this.wordSecretModel = data;
     });
@@ -63,6 +75,10 @@ export class WordFormComponent implements OnInit {
       }
     })
   }
-
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
 }
