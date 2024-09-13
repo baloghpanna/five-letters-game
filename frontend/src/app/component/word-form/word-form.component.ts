@@ -5,7 +5,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {lengthValidator} from "../../validators/length-validator";
 import {WordInputModel} from "../../model/wordInput.model";
-import {WordSecretModel} from "../../model/wordSecret.model";
 import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
@@ -22,7 +21,6 @@ import {Subscription} from "rxjs";
   styleUrl: './word-form.component.scss'
 })
 export class WordFormComponent implements OnInit, OnDestroy {
-  @Input() wordSecretModel!: WordSecretModel;
   @Output() guessResult!: GuessResultModel[];
   inputWordForm!: FormGroup;
   @Output() guessMade: EventEmitter<void> = new EventEmitter();
@@ -50,9 +48,6 @@ export class WordFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.gameService.wordSecretModel$.subscribe(data => {
-      this.wordSecretModel = data;
-    });
   }
 
   send() {

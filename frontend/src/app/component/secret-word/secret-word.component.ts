@@ -20,7 +20,6 @@ import {MatIcon} from "@angular/material/icon";
 })
 export class SecretWordComponent {
   secretWord!: WordSecretModel;
-  // @Output() secretWord: EventEmitter<WordSecretModel> = new EventEmitter<WordSecretModel>();
   isGetSecretWord = false;
 
   constructor(private gameService: GameService) {
