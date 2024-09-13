@@ -12,17 +12,18 @@ const BASE_URL = 'http://localhost:8081/api/words'
   providedIn: 'root'
 })
 export class GameService {
-  private gameId: number = 0;
+  private gameIdSubject = new BehaviorSubject<number>(0);
+  gameId$= this.gameIdSubject.asObservable();
 
   constructor(private http: HttpClient) {
   }
 
   setGameId(id: number): void {
-    this.gameId = id;
+    this.gameIdSubject.next(id);
   }
 
   getGameId(): number {
-    return this.gameId;
+    return this.gameIdSubject.getValue();
   }
 
   getSecretWord(): Observable<WordSecretModel> {
@@ -30,8 +31,8 @@ export class GameService {
   }
 
   makeGuessTips(inputWord: WordInputModel): Observable<boolean> {
-    console.log("A beküldött szó: " + inputWord.word + " ---gameID: " + this.gameId);
-    return this.http.post<boolean>(`${BASE_URL}/${this.gameId}/guess`, inputWord);
+    console.log("A beküldött szó: " + inputWord.word + " ---gameID: " + this.getGameId());
+    return this.http.post<boolean>(`${BASE_URL}/${this.getGameId()}/guess`, inputWord);
   }
 
   private wordSecretObject = new BehaviorSubject<WordSecretModel>({secretWord: '', wordId: 0, gameId: 0});
@@ -42,13 +43,13 @@ export class GameService {
   }
 
   getGuessList() : Observable<GuessResultModel[]> {
-    return this.http.get<GuessResultModel[]>(`${BASE_URL}/${this.gameId}`);
+    return this.http.get<GuessResultModel[]>(`${BASE_URL}/${this.getGameId()}`);
   }
 
   checkSolution(solution: SolutionInputModel): Observable<boolean> {
     const params = new HttpParams()
       .set('solutionWord', solution.solutionWord);
-    return this.http.get<boolean>(`${BASE_URL}/${this.gameId}/solution`, {params});
+    return this.http.get<boolean>(`${BASE_URL}/${this.getGameId()}/solution`, {params});
   }
 
   // checkSolution(solution: SolutionInputModel):

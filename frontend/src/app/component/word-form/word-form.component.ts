@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {lengthValidator} from "../../validators/length-validator";
 import {WordInputModel} from "../../model/wordInput.model";
-import {WordSecretModel} from "../../model/wordSecret.model";
 import {GameService} from "../../service/game.service";
 import {GuessResultModel} from "../../model/guessResult.model";
 import {WordListComponent} from "../word-list/word-list.component";
@@ -13,6 +12,7 @@ import {MatCard} from "@angular/material/card";
 import {NgIf} from "@angular/common";
 import {MessageNoWordComponent} from "../message-no-word/message-no-word.component";
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -30,28 +30,35 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
   templateUrl: './word-form.component.html',
   styleUrl: './word-form.component.scss'
 })
-export class WordFormComponent implements OnInit {
-  @Input() wordSecretModel!: WordSecretModel;
+export class WordFormComponent implements OnInit, OnDestroy {
   @Output() guessResult!: GuessResultModel[];
-  inputWordForm: FormGroup;
+  inputWordForm!: FormGroup;
   @Output() guessMade: EventEmitter<void> = new EventEmitter();
   errorMessage: string | null = null;
+  private subscription!: Subscription;
 
 
-  constructor(formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
+              protected gameService: GameService,
               public dialog: MatDialog,
-              protected gameService: GameService
   ) {
-    this.inputWordForm = formBuilder.group({
-      userWord: [{value: ''}, [lengthValidator(5) ]]
-    });
+
 
   }
 
   ngOnInit() {
-    this.gameService.wordSecretModel$.subscribe(data => {
-      this.wordSecretModel = data;
+    this.inputWordForm = this.formBuilder.group({
+      userWord: ["", lengthValidator(5)]
     });
+
+    this.subscription = this.gameService.gameId$.subscribe(gameId => {
+      if (gameId === 0) {
+        this.inputWordForm.disable();
+      } else {
+        this.inputWordForm.enable();
+      }
+    });
+
   }
 
   send() {
@@ -81,6 +88,11 @@ export class WordFormComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(MessageNoWordComponent);
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }
